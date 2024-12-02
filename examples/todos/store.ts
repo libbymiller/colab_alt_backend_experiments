@@ -2,18 +2,10 @@ import { syncedStore, getYjsDoc } from "@syncedstore/core";
 import { WebsocketProvider } from "y-websocket";
 
 // (optional, define types for TypeScript)
-//type Todo = { completed: boolean, title: string };
-type Presence = [{ name: string, x: int, y: int }];
-
-const names: string[] = [];
+type Todo = { completed: boolean, title: string };
 
 // Create your SyncedStore store
-export const store = syncedStore({
-  names: names,
-  presences: {} as Presence,
-  fragment: "xml"
-});
-
+export const store = syncedStore({ todos: [] as Todo[], fragment: "xml" });
 
 // Create a document that syncs automatically using Y-WebRTC
 const doc = getYjsDoc(store);

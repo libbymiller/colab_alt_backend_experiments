@@ -1,41 +1,59 @@
 'use client';
 
-import React from "react";
+//import React from "react";
+import React, { useState, useEffect } from "react";
+
 import { useSyncedStore } from "@syncedstore/react";
 import { store } from "./store";
 
 export default function App() {
+
   const state = useSyncedStore(store);
+  let myname = null;
+
+  useEffect(() => {
+
+    const queryParams = new URLSearchParams(window.location.search);
+    const name = queryParams.get("name");
+    myname = name;
+    console.log("name",name, state.names);
+    if(name!="" && state.names){
+      state.names.push(name);
+      console.log("state.names",state.names.toJSON());
+    }
+  }, []);
+
+  const function1 = (event) => {
+        const cursor = {name: myname, x: event.pageX, y: event.pageY };
+        if(myname){
+          state.presences[myname] = cursor;
+          console.log(cursor);
+        }else{
+          console.log("name is null");
+        }
+  }
 
   return (
+
     <div>
-      <p>Todo items:</p>
-      <ul>
-        {state.todos.map((todo, i) => {
-          return (
-            <li key={i} style={{ textDecoration: todo.completed ? "line-through" : "" }}>
-              <label>
-                <input type="checkbox" checked={todo.completed} onClick={() => (todo.completed = !todo.completed)}  onChange={e => {}}/>
-                {todo.title}
-              </label>
-            </li>
-          );
-        })}
-      </ul>
-      <input
-        placeholder="Enter a todo item and hit enter"
-        type="text"
-        onKeyPress={(event) => {
-          if (event.key === "Enter") {
-            const target = event.target as HTMLInputElement;
-            // Add a todo item using the text added in the textfield
-            state.todos.push({ completed: false, title: target.value });
-            target.value = "";
-          }
-        }}
-        style={{ width: "200px", maxWidth: "100%" }}
-      />
+      <div className="Shaded" onPointerMove={function1}>
+
+hello
+      </div>
+  
+      <div>
+       {Object.keys(state.presences).map((key, index) => (
+                        Object.keys(state.presences[key]).map((y, i) => (
+                                <span key={i}>
+                                  {key} : {y} : {state.presences[key][y]} : {name}
+                                </span>
+                        ))
+       ))}
+
+      </div>
     </div>
+   
   );
+
 }
 
