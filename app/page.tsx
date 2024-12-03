@@ -8,25 +8,26 @@ import { store } from "./store";
 
 export default function App() {
 
-  const state = useSyncedStore(store);
-  let myname = null;
+  const syncState = useSyncedStore(store);
+
+  const [myName, setMyName] = useState();
 
   useEffect(() => {
 
     const queryParams = new URLSearchParams(window.location.search);
     const name = queryParams.get("name");
-    myname = name;
-    console.log("name",name, state.names);
-    if(name!="" && state.names){
-      state.names.push(name);
-      console.log("state.names",state.names.toJSON());
+    setMyName(name);
+    console.log("name",name, myName);
+    if(name!="" && syncState.names){
+      syncState.names.push(name);
+      console.log("syncState.names",syncState.names.toJSON());
     }
   }, []);
 
   const function1 = (event) => {
-        const cursor = {name: myname, x: event.pageX, y: event.pageY };
-        if(myname){
-          state.presences[myname] = cursor;
+        const cursor = {name: myName, x: event.pageX, y: event.pageY };
+        if(myName){
+          syncState.presences[myName] = cursor;
           console.log(cursor);
         }else{
           console.log("name is null");
@@ -42,10 +43,10 @@ hello
       </div>
   
       <div>
-       {Object.keys(state.presences).map((key, index) => (
-                        Object.keys(state.presences[key]).map((y, i) => (
+       {Object.keys(syncState.presences).map((key, index) => (
+                        Object.keys(syncState.presences[key]).map((y, i) => (
                                 <span key={i}>
-                                  {key} : {y} : {state.presences[key][y]} : {name}
+                                  {key} : {y} : {syncState.presences[key][y]} : {name}
                                 </span>
                         ))
        ))}
