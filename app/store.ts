@@ -4,6 +4,8 @@ import { WebsocketProvider } from "y-websocket";
 // (optional, define types for TypeScript)
 //type Todo = { completed: boolean, title: string };
 type Presence = [{ name: string, x: int, y: int }];
+type Room = [ {metadata: {} }];
+type LiveObject = [{}];
 
 const names: string[] = [];
 
@@ -11,6 +13,8 @@ const names: string[] = [];
 export const store = syncedStore({
   names: names,
   presences: {} as Presence,
+  rooms: {} as Room,
+  liveObjects: {} as LiveObject,
   fragment: "xml"
 });
 
