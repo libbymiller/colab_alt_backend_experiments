@@ -1,11 +1,11 @@
 import { syncedStore, getYjsDoc } from "@syncedstore/core";
 import { WebsocketProvider } from "y-websocket";
-import {LiveObject, LiveList, LiveMap} from "../some_types";
+//import {LiveObject, LiveList, LiveMap} from "../some_types";
 
 
 // (optional, define types for TypeScript)
 //type Todo = { completed: boolean, title: string };
-//type Presence = [{ name: string, x: int, y: int }];
+type Presence = [{ name: string, x: int, y: int }];
 //type Room = [ {metadata: {} }];
 //type LiveObject = [{}];
 //type LiveList = [[]];

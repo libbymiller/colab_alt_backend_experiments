@@ -18,15 +18,17 @@ npm install
 
 open two windows:
 
-http://localhost:3000/?name=foo
+http://localhost:3000/presence?name=foo&room=1234
 
-http://localhost:3000/?name=bar
+http://localhost:3000/presence?name=bar&room=1234
 
 notice the coordinates of the pointer in one appearing in the text of the other
 
 # notes
 
 The default webrtc server didn't work and failed in weird ways, so using websockets for now
+
+I'm trying to write a "room" page but not finished it yet.
 
 
 
