@@ -17,11 +17,13 @@ export default function App() {
 
     const queryParams = new URLSearchParams(window.location.search);
     const name = queryParams.get("name");
-    setMyName(name);
-    console.log("name",name, myName);
+    const suffix = Date.now().toString()
+    const rawUsername = name+"-"+suffix;
+    setMyName(rawUsername);
+    console.log("name",name, myName, rawUsername);
     if(name!="" && syncState.names){
-      syncState.names.push(name);
-      console.log("syncState.names",syncState.names.toJSON());
+        console.log("Adding name",name,"to",syncState.names);
+        syncState.names.push(rawUsername);
     }
   }, []);
 
