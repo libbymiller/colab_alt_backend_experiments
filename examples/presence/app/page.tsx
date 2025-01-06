@@ -1,10 +1,11 @@
 'use client';
 
-//import React from "react";
 import React, { useState, useEffect } from "react";
 
 import { useSyncedStore } from "@syncedstore/react";
 import { store } from "./store";
+import RoomProvider from './components/RoomProvider'
+
 
 export default function App() {
 
@@ -34,27 +35,30 @@ export default function App() {
         }
   }
 
-  return (
+  return  (
 
-    <div>
+    <div>     
+      <RoomProvider id="1234" username="{myName}"></RoomProvider>
       <div className="Shaded" onPointerMove={function1}>
-
-hello
+      move <br />
+      pointer <br />
+      here 
       </div>
-  
+
+     <div>
+      <h2>I am {myName}</h2>
       <div>
        {Object.keys(syncState.presences).map((key, index) => (
                         Object.keys(syncState.presences[key]).map((y, i) => (
                                 <span key={i}>
-                                  {key} : {y} : {syncState.presences[key][y]} : {name}
+                                  {key} : {y} : {syncState.presences[key][y]} <br />
                                 </span>
                         ))
        ))}
 
       </div>
+     </div>
     </div>
-   
-  );
-
+  )   
 }
 
